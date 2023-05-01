@@ -1,3 +1,5 @@
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+
 export default function NavBar() {
   return (
     <div className='fixed h-24 w-full text-white flex justify-between px-10 items-center z-20'>
@@ -6,6 +8,9 @@ export default function NavBar() {
         <div>team</div>
         <div>Log In</div>
         <div>CART ICON</div>
+
+        <ConnectButton></ConnectButton>
+
       </div>
     </div>
   )
