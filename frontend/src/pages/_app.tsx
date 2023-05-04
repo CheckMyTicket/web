@@ -23,6 +23,8 @@ import { useRouter } from 'next/router'
 
 const apiKey = process.env.ALCHEMY_API_KEY || ''
 
+console.log(process.env.ALCHEMY_API_KEY)
+
 const { chains, provider } = configureChains(
   [
     mainnet,
