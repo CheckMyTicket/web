@@ -36,7 +36,7 @@ const { chains, provider } = configureChains(
     polygonZkEvm,
     polygonZkEvmTestnet
   ],
-  [alchemyProvider({ apiKey: apiKey }), publicProvider()]
+  [alchemyProvider({ apiKey }), publicProvider()]
 )
 
 const { connectors } = getDefaultWallets({
@@ -54,8 +54,8 @@ export { WagmiConfig, RainbowKitProvider }
 
 function MyApp({ Component, pageProps }: any) {
   const router = useRouter()
-  const account = useAccount({
-    onConnect({ address, connector, isReconnected }) {
+  useAccount({
+    onConnect({ isReconnected }) {
       if (!isReconnected) router.reload()
     }
   })
