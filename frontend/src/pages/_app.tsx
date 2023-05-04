@@ -1,8 +1,8 @@
-import "../styles/globals.css";
-import "@rainbow-me/rainbowkit/styles.css";
+import '../styles/globals.css'
+import '@rainbow-me/rainbowkit/styles.css'
 
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createClient, useAccount, WagmiConfig } from "wagmi";
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { configureChains, createClient, useAccount, WagmiConfig } from 'wagmi'
 import {
   mainnet,
   polygon,
@@ -13,13 +13,13 @@ import {
   optimismGoerli,
   arbitrumGoerli,
   polygonZkEvm,
-  polygonZkEvmTestnet,
-} from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
+  polygonZkEvmTestnet
+} from 'wagmi/chains'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { publicProvider } from 'wagmi/providers/public'
 import Layout from '@/components/Layout'
 
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 
 const apiKey = process.env.ALCHEMY_API_KEY || ''
 
@@ -37,34 +37,34 @@ const { chains, provider } = configureChains(
     polygonZkEvmTestnet
   ],
   [alchemyProvider({ apiKey: apiKey }), publicProvider()]
-);
+)
 
 const { connectors } = getDefaultWallets({
-  appName: "My Alchemy DApp",
-  chains,
-});
+  appName: 'My Alchemy DApp',
+  chains
+})
 
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
-  provider,
-});
+  provider
+})
 
-export { WagmiConfig, RainbowKitProvider };
+export { WagmiConfig, RainbowKitProvider }
 
 function MyApp({ Component, pageProps }: any) {
-  const router = useRouter();
+  const router = useRouter()
   const account = useAccount({
     onConnect({ address, connector, isReconnected }) {
-      if (!isReconnected) router.reload();
-    },
-  });
+      if (!isReconnected) router.reload()
+    }
+  })
 
   const defaultChain = Number(process.env.NEXT_PUBLIC_DEFAULT_CHAIN) || 0
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
-        modalSize="compact"
+        modalSize='compact'
         initialChain={defaultChain}
         chains={chains}
       >
@@ -73,7 +73,7 @@ function MyApp({ Component, pageProps }: any) {
         </Layout>
       </RainbowKitProvider>
     </WagmiConfig>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp
