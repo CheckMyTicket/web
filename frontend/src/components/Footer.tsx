@@ -6,7 +6,7 @@ import {
 
 export default function Footer() {
   return (
-    <section className='md:mx-12 md:py-6'>
+    <section className='md:mx-12 md:py-6 py-4'>
       <div className='flex gap-3 items-center justify-center py-3'>
         <AiOutlineFacebook
           size={30}
