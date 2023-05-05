@@ -20,6 +20,7 @@ import { publicProvider } from 'wagmi/providers/public'
 import Layout from '@/components/Layout'
 
 import { useRouter } from 'next/router'
+import ScreenSizeProvider from '@/context/screenSize/screenSizeProvider'
 
 const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY || ''
 
@@ -68,9 +69,11 @@ function MyApp({ Component, pageProps }: any) {
         initialChain={defaultChain}
         chains={chains}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ScreenSizeProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ScreenSizeProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   )
