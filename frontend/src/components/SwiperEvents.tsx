@@ -47,7 +47,7 @@ export default function SwiperEvents({ title }: Props) {
       )}
       <Swiper
         spaceBetween={0}
-        slidesPerView={viewSize === 'sm' ? 2.1 : 4}
+        slidesPerView={viewSize === 'sd' ? 2.1 : 4}
         centeredSlides
         className='eventCardContainer'
         loop
