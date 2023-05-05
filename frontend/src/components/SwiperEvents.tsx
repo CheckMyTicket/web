@@ -1,10 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import EventCard from './EventCard'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useContext, useRef } from 'react'
 import useIsomorphicLayoutEffect from '@/hooks/useIsomorphicLayoutEffect'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import { ScreenSizeContext } from '@/context/screenSize/screenSizeProvider'
 
 interface Props {
   title?: string
@@ -15,31 +16,8 @@ gsap.registerPlugin(ScrollTrigger)
 const EVENTS_LENGTH_X2 = 10
 
 export default function SwiperEvents({ title }: Props) {
-  const [device, setDevice] = useState('')
+  const { viewSize } = useContext(ScreenSizeContext)
   const container = useRef(null)
-
-  const putDevice = useCallback((n: number) => {
-    if (n >= 1024) {
-      setDevice('ld')
-    } else if (n >= 768) {
-      setDevice('md')
-    } else {
-      setDevice('sm')
-    }
-  }, [])
-
-  useEffect(() => {
-    putDevice(window.innerWidth)
-
-    window.addEventListener('resize', () => {
-      putDevice(window.innerWidth)
-    })
-
-    return () =>
-      window.removeEventListener('resize', () => {
-        putDevice(window.innerWidth)
-      })
-  }, [putDevice])
 
   useIsomorphicLayoutEffect(() => {
     let ctx: gsap.Context
@@ -69,7 +47,7 @@ export default function SwiperEvents({ title }: Props) {
       )}
       <Swiper
         spaceBetween={0}
-        slidesPerView={device === 'sm' ? 2.1 : 4}
+        slidesPerView={viewSize === 'sm' ? 2.1 : 4}
         centeredSlides
         className='eventCardContainer'
         loop
